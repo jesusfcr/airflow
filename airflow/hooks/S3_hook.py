@@ -85,7 +85,7 @@ class S3Hook(AwsHook):
         response = self.get_conn().list_objects_v2(Bucket=bucket_name, 
                                                    Prefix=prefix, 
                                                    Delimiter=delimiter)
-        return [p.Prefix for p in response['CommonPrefixes']] if response.get('CommonPrefixes') else None
+        return [p['Prefix'] for p in response['CommonPrefixes']] if response.get('CommonPrefixes') else None
 
     def list_keys(self, bucket_name, prefix='', delimiter=''):
         """
@@ -101,7 +101,7 @@ class S3Hook(AwsHook):
         response = self.get_conn().list_objects_v2(Bucket=bucket_name, 
                                                    Prefix=prefix, 
                                                    Delimiter=delimiter)
-        return [k.Key for k in response['Contents']] if response.get('Contents') else None
+        return [k['Key'] for k in response['Contents']] if response.get('Contents') else None
 
     def check_for_key(self, key, bucket_name=None):
         """
